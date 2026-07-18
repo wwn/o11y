@@ -6,8 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ApplicationScoped
-@UseCase
 public class FirenzeBusinessUseCase extends BaseBusinessUseCase {
+    @Override
+    void invoke() {
+        log.info("Firenze business logic output");
+    }
+
     @Override
     protected String getUseCaseName() {
         return "Firenze";

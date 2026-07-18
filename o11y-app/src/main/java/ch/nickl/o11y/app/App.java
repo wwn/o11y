@@ -1,19 +1,23 @@
 package ch.nickl.o11y.app;
 
-import ch.nickl.o11y.app.application.usecase.BusinessUseCase;
+import ch.nickl.o11y.app.infrastructure.client.DresdenClient;
+import ch.nickl.o11y.app.infrastructure.client.FirenzeClient;
+import ch.nickl.o11y.app.infrastructure.client.LondonClient;
 import io.quarkus.runtime.StartupEvent;
+import io.smallrye.mutiny.Uni;
 import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
-import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.slf4j.MDC;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 @Slf4j
 @ApplicationScoped
@@ -30,35 +34,42 @@ public class App {
     Vertx vertx;
 
     @Inject
-    Instance<BusinessUseCase> useCases;
+    @RestClient
+    LondonClient londonClient;
 
-    private final AtomicInteger currentHops = new AtomicInteger(-1);
+    @Inject
+    @RestClient
+    FirenzeClient firenzeClient;
+
+    @Inject
+    @RestClient
+    DresdenClient dresdenClient;
+
+    @ConfigProperty(name = "o11y.app.initial-sequence.enabled", defaultValue = "false")
+    boolean initialSequenceEnabled;
 
     void onStart(@Observes StartupEvent ev) {
-        log.info("The application is starting. Waiting 10 seconds for other services to be ready...");
-        currentHops.set(initialHops);
-        vertx.setTimer(10_000L, id -> {
-            log.info("Starting initial use case call sequence (Hops: {}, Delay: {}).", initialHops, delay);
-            callRandomUseCase();
-        });
+        if (initialSequenceEnabled) {
+            log.info("Starting initial call sequence (Hops: {}, Delay: {}) in 10s.", initialHops, delay);
+            vertx.setTimer(10000, id -> callRandomUseCase());
+        }
     }
 
     private void callRandomUseCase() {
-        List<BusinessUseCase> list = new ArrayList<>();
-        useCases.forEach(list::add);
+        List<NextCall> calls = List.of(
+                new NextCall("London", () -> londonClient.callLondon(initialHops, delay)),
+                new NextCall("Firenze", () -> firenzeClient.callFirenze(initialHops, delay)),
+                new NextCall("Dresden", () -> dresdenClient.callDresden(initialHops, delay))
+        );
 
-        if (!list.isEmpty()) {
-            BusinessUseCase selected = list.get(RANDOM.nextInt(list.size()));
-            int hopsToPass = currentHops.getAndDecrement();
-            
-            if (hopsToPass >= 0) {
-                log.info("Triggering sequence: {} with {} hops remaining.", selected.getClass().getSimpleName(), hopsToPass);
-                selected.callBusinessUseCase(hopsToPass, delay);
-            } else {
-                log.info("Initial hops exhausted. No more automatic calls.");
-            }
-        } else {
-            log.warn("No BusinessUseCase implementations found!");
-        }
+        NextCall selected = calls.get(RANDOM.nextInt(calls.size()));
+
+        log.info("Triggering initial REST call to: {} with {} initial hops.", selected.name(), initialHops);
+        selected.call().get().subscribe().with(
+                res -> log.info("Initial sequence completed: {}", res),
+                err -> log.error("Initial sequence failed", err)
+        );
     }
+
+    private record NextCall(String name, Supplier<Uni<String>> call) {}
 }
