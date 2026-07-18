@@ -1,0 +1,11 @@
+# Project exclude paths
+/.gradle/
+/build/
+/dresden/build/
+/dresden/build/classes/java/main/
+/firenze/build/
+/firenze/build/classes/java/main/
+/london/build/
+/london/build/classes/java/main/
+/o11y-app/build/
+/o11y-app/build/classes/java/main/

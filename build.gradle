@@ -1,0 +1,23 @@
+allprojects {
+    group 'ch.nickl.o11y'
+    version '1.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(25)
+        }
+    }
+
+    dependencies {
+        implementation libs.slf4j.api
+        implementation libs.logback.classic
+        // implementation libs.quarkus.logging.logback // Removed because of BOM issues in subprojects
+    }
+}

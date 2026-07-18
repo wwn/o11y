@@ -1,0 +1,5 @@
+rootProject.name = 'o11y'
+include 'london'
+include 'firenze'
+include 'dresden'
+include 'o11y-app'

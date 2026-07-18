@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    alias(libs.plugins.quarkus)
+    alias(libs.plugins.jandex)
+}
+
+dependencies {
+    implementation enforcedPlatform(libs.quarkus.bom)
+    implementation libs.quarkus.logging.logback
+    implementation libs.jakarta.cdi.api
+    implementation libs.jakarta.interceptor.api
+    implementation libs.slf4j.api
+    implementation libs.quarkus.rest
+    implementation libs.quarkus.rest.client
+    implementation libs.quarkus.rest.client.jackson
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    implementation libs.quarkus.arc
+    implementation libs.quarkus.scheduler
+}

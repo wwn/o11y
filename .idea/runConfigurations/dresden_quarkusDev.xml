@@ -1,0 +1,23 @@
+<?xml version=\\1.0\\ encoding=\\UTF-8\\?>
+<project version=\\4\\>
+ <component name=\\ProjectRunConfigurationManager\\>
+ <configuration default=\\false\\ name=\\dresden: quarkusDev\\ type=\\GradleRunConfiguration\\ factoryName=\\Gradle\\>
+ <ExternalSystemSettings>
+ <option name=\\externalProjectPath\\ value=\\$\\ />
+ <option name=\\gradleProjectPath\\ value=\\$\\ />
+ <option name=\\externalSystemIdString\\ value=\\GRADLE\\ />
+ <option name=\\scriptParameters\\ value=\\\\ />
+ <option name=\\taskNames\\>
+ <list>
+ <option value=\\:dresden:quarkusDev\\ />
+ </list>
+ </option>
+ </ExternalSystemSettings>
+ <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+ <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+ <DebugAllEnabled>false</DebugAllEnabled>
+ <RunAsTest>false</RunAsTest>
+ <method v=\\2\\ />
+ </configuration>
+ </component>
+</project>

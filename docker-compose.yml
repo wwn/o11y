@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  london:
+    build:
+      context: .
+      dockerfile: london/Dockerfile
+    ports:
+      - "49252:49252"
+    environment:
+      - LONDON_API_URL=http://london:49252
+      - FIRENZE_API_URL=http://firenze:49253
+      - DRESDEN_API_URL=http://dresden:49254
+    depends_on:
+      - firenze
+      - dresden
+
+  firenze:
+    build:
+      context: .
+      dockerfile: firenze/Dockerfile
+    ports:
+      - "49253:49253"
+    environment:
+      - LONDON_API_URL=http://london:49252
+      - FIRENZE_API_URL=http://firenze:49253
+      - DRESDEN_API_URL=http://dresden:49254
+    depends_on:
+      - london
+      - dresden
+
+  dresden:
+    build:
+      context: .
+      dockerfile: dresden/Dockerfile
+    ports:
+      - "49254:49254"
+    environment:
+      - LONDON_API_URL=http://london:49252
+      - FIRENZE_API_URL=http://firenze:49253
+      - DRESDEN_API_URL=http://dresden:49254
+    depends_on:
+      - london
+      - firenze
+
+  o11y-app:
+    build:
+      context: .
+      dockerfile: o11y-app/Dockerfile
+    ports:
+      - "49255:49255"
+    environment:
+      - LONDON_API_URL=http://london:49252
+      - FIRENZE_API_URL=http://firenze:49253
+      - DRESDEN_API_URL=http://dresden:49254
+    depends_on:
+      - london
+      - firenze
+      - dresden

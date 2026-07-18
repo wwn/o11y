@@ -1,0 +1,14 @@
+plugins {
+    alias(libs.plugins.quarkus)
+}
+
+dependencies {
+    implementation enforcedPlatform(libs.quarkus.bom)
+    implementation libs.quarkus.logging.logback
+    implementation project(':o11y-app')
+    implementation libs.quarkus.rest
+    implementation libs.quarkus.arc
+
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+}

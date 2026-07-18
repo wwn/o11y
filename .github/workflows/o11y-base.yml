@@ -1,0 +1,41 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 25
+      uses: actions/setup-java@v4
+      with:
+        java-version: '25'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Build Docker image for London
+      run: docker build -t london:latest -f london/Dockerfile .
+
+    - name: Build Docker image for Firenze
+      run: docker build -t firenze:latest -f firenze/Dockerfile .
+
+    - name: Build Docker image for Dresden
+      run: docker build -t dresden:latest -f dresden/Dockerfile .
+
+    - name: Build Docker image for o11y-app
+      run: docker build -t o11y-app:latest -f o11y-app/Dockerfile .
