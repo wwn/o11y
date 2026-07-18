@@ -35,24 +35,28 @@ public class App {
     private final AtomicInteger currentHops = new AtomicInteger(-1);
 
     void onStart(@Observes StartupEvent ev) {
-        log.info("The application is starting in 10 seconds...");
+        log.info("The application is starting. Waiting 10 seconds for other services to be ready...");
         currentHops.set(initialHops);
         vertx.setTimer(10_000L, id -> {
-            log.info("Starting initial use case call now.");
-            callRandomUseCase(initialHops, delay);
+            log.info("Starting initial use case call sequence (Hops: {}, Delay: {}).", initialHops, delay);
+            callRandomUseCase();
         });
     }
 
-    private void callRandomUseCase(int hops, String delay) {
+    private void callRandomUseCase() {
         List<BusinessUseCase> list = new ArrayList<>();
         useCases.forEach(list::add);
 
         if (!list.isEmpty()) {
             BusinessUseCase selected = list.get(RANDOM.nextInt(list.size()));
             int hopsToPass = currentHops.getAndDecrement();
-            System.out.println("Calling business use case " + selected.getClass().getSimpleName() + " with hops: " + hopsToPass + ", delay: " + delay);
-            log.info("Calling business use case " + selected.getClass().getSimpleName() + " with hops: " + hopsToPass + ", delay: " + delay);
-            selected.callBusinessUseCase(hopsToPass, delay);
+            
+            if (hopsToPass >= 0) {
+                log.info("Triggering sequence: {} with {} hops remaining.", selected.getClass().getSimpleName(), hopsToPass);
+                selected.callBusinessUseCase(hopsToPass, delay);
+            } else {
+                log.info("Initial hops exhausted. No more automatic calls.");
+            }
         } else {
             log.warn("No BusinessUseCase implementations found!");
         }

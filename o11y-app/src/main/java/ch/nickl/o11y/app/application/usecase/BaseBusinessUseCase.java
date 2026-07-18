@@ -54,15 +54,21 @@ public abstract class BaseBusinessUseCase implements BusinessUseCase {
                 switch (choice) {
                     case 0 -> {
                         log.info("{} calling London with hops: {}, delay: {}", name, nextHops, delay);
-                        londonClient.callLondon(nextHops, delay).subscribe().with(res -> log.info("London response: {}", res), err -> log.error("London call failed", err));
+                        londonClient.callLondon(nextHops, delay)
+                                .onFailure().retry().atMost(3)
+                                .subscribe().with(res -> log.info("London response: {}", res), err -> log.error("London call failed after retries", err));
                     }
                     case 1 -> {
                         log.info("{} calling Firenze with hops: {}, delay: {}", name, nextHops, delay);
-                        firenzeClient.callFirenze(nextHops, delay).subscribe().with(res -> log.info("Firenze response: {}", res), err -> log.error("Firenze call failed", err));
+                        firenzeClient.callFirenze(nextHops, delay)
+                                .onFailure().retry().atMost(3)
+                                .subscribe().with(res -> log.info("Firenze response: {}", res), err -> log.error("Firenze call failed after retries", err));
                     }
                     case 2 -> {
                         log.info("{} calling Dresden with hops: {}, delay: {}", name, nextHops, delay);
-                        dresdenClient.callDresden(nextHops, delay).subscribe().with(res -> log.info("Dresden response: {}", res), err -> log.error("Dresden call failed", err));
+                        dresdenClient.callDresden(nextHops, delay)
+                                .onFailure().retry().atMost(3)
+                                .subscribe().with(res -> log.info("Dresden response: {}", res), err -> log.error("Dresden call failed after retries", err));
                     }
                 }
                 MDC.clear();

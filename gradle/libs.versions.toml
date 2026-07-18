@@ -13,7 +13,8 @@ quarkus-rest = { group = "io.quarkus", name = "quarkus-rest" }
 quarkus-rest-client = { group = "io.quarkus", name = "quarkus-rest-client" }
 quarkus-rest-client-jackson = { group = "io.quarkus", name = "quarkus-rest-client-jackson" }
 quarkus-arc = { group = "io.quarkus", name = "quarkus-arc" }
-quarkus-scheduler = { group = "io.quarkus", name = "quarkus-scheduler" }
+quarkus-smallrye-fault-tolerance = { group = "io.quarkus", name = "quarkus-smallrye-fault-tolerance" }
+quarkus-smallrye-health = { group = "io.quarkus", name = "quarkus-smallrye-health" }
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 jakarta-cdi-api = { group = "jakarta.enterprise", name = "jakarta.enterprise.cdi-api", version.ref = "cdi-api" }
 jakarta-interceptor-api = { group = "jakarta.interceptor", name = "jakarta.interceptor-api", version.ref = "interceptor-api" }

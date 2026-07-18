@@ -8,19 +8,19 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import ch.nickl.o11y.app.infrastructure.UseCase;
 import jakarta.ws.rs.QueryParam;
-import ch.nickl.o11y.app.application.usecase.LondenBusinessUseCase;
+import ch.nickl.o11y.app.application.usecase.LondonBusinessUseCase;
 
 @Path("/london")
 public class LondonResource {
 
     @Inject
-    LondenBusinessUseCase londenUseCase;
+    LondonBusinessUseCase londonUseCase;
 
     @GET
     @UseCase
     @Produces(MediaType.TEXT_PLAIN)
     public Uni<String> callLondon(@QueryParam("hops") int hops, @QueryParam("delay") String delay) {
-        londenUseCase.callBusinessUseCase(hops, delay);
+        londonUseCase.callBusinessUseCase(hops, delay);
         return Uni.createFrom().item("London processed with hops: " + hops + " and delay: " + delay);
     }
 }

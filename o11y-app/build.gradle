@@ -16,5 +16,6 @@ dependencies {
     compileOnly libs.lombok
     annotationProcessor libs.lombok
     implementation libs.quarkus.arc
-    implementation libs.quarkus.scheduler
+    implementation libs.quarkus.smallrye.fault.tolerance
+    implementation libs.quarkus.smallrye.health
 }
