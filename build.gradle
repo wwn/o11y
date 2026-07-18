@@ -17,7 +17,5 @@ subprojects {
 
     dependencies {
         implementation libs.slf4j.api
-        implementation libs.logback.classic
-        // implementation libs.quarkus.logging.logback // Removed because of BOM issues in subprojects
     }
 }
