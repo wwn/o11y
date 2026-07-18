@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   london:
     build:
@@ -11,9 +9,6 @@ services:
       - LONDON_API_URL=http://london:49252
       - FIRENZE_API_URL=http://firenze:49253
       - DRESDEN_API_URL=http://dresden:49254
-    depends_on:
-      - firenze
-      - dresden
 
   firenze:
     build:
@@ -25,9 +20,6 @@ services:
       - LONDON_API_URL=http://london:49252
       - FIRENZE_API_URL=http://firenze:49253
       - DRESDEN_API_URL=http://dresden:49254
-    depends_on:
-      - london
-      - dresden
 
   dresden:
     build:
@@ -39,9 +31,6 @@ services:
       - LONDON_API_URL=http://london:49252
       - FIRENZE_API_URL=http://firenze:49253
       - DRESDEN_API_URL=http://dresden:49254
-    depends_on:
-      - london
-      - firenze
 
   o11y-app:
     build:
