@@ -1,6 +1,6 @@
 allprojects {
-    group 'ch.nickl.o11y'
-    version '1.0.0-SNAPSHOT'
+    group = 'ch.nickl.o11y'
+    version = '1.0.0-SNAPSHOT'
 
     repositories {
         mavenCentral()
@@ -9,13 +9,18 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
+
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(25)
         }
     }
 
-    dependencies {
-        implementation libs.slf4j.api
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
     }
 }
