@@ -1,11 +1,14 @@
 [versions]
-quarkus = "3.37.1"
+# Quarkus latest stable; keep plugin + BOM in lock-step.
+quarkus = "3.39.1"
+# Jandex Gradle plugin (org.kordamp.gradle.jandex), not the Jandex library (BOM-managed).
 jandex = "2.3.0"
 lombok = "1.18.46"
-cdi-api = "4.0.1"
-interceptor-api = "2.1.0"
-slf4j = "2.0.16"
-logback = "1.5.16"
+# The three coordinates below are also managed by the enforced Quarkus BOM; the versions
+# here are kept in sync with Quarkus 3.39.1 so the catalog stays honest.
+cdi-api = "4.1.0"
+interceptor-api = "2.2.0"
+slf4j = "2.0.18"
 
 [libraries]
 quarkus-bom = { group = "io.quarkus.platform", name = "quarkus-bom", version.ref = "quarkus" }
@@ -19,7 +22,6 @@ lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" 
 jakarta-cdi-api = { group = "jakarta.enterprise", name = "jakarta.enterprise.cdi-api", version.ref = "cdi-api" }
 jakarta-interceptor-api = { group = "jakarta.interceptor", name = "jakarta.interceptor-api", version.ref = "interceptor-api" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
-logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 quarkus-logging-logback = { group = "io.quarkiverse.logging.logback", name = "quarkus-logging-logback", version = "1.2.0" }
 
 [plugins]
