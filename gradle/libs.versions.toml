@@ -1,11 +1,7 @@
 [versions]
-# Quarkus latest stable; keep plugin + BOM in lock-step.
 quarkus = "3.39.1"
-# Jandex Gradle plugin (org.kordamp.gradle.jandex), not the Jandex library (BOM-managed).
 jandex = "2.3.0"
 lombok = "1.18.46"
-# The three coordinates below are also managed by the enforced Quarkus BOM; the versions
-# here are kept in sync with Quarkus 3.39.1 so the catalog stays honest.
 cdi-api = "4.1.0"
 interceptor-api = "2.2.0"
 slf4j = "2.0.18"
