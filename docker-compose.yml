@@ -1,4 +1,35 @@
 services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.14.3
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.14.3
+    user: root
+    command: ["-e", "--strict.perms=false"]
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - filebeat-data:/usr/share/filebeat/data
+    depends_on:
+      - elasticsearch
+      - kibana
+
   london:
     build:
       context: .
@@ -9,6 +40,8 @@ services:
       - LONDON_API_URL=http://london:49252
       - FIRENZE_API_URL=http://firenze:49253
       - DRESDEN_API_URL=http://dresden:49254
+    labels:
+      co.elastic.logs/enabled: "true"
 
   firenze:
     build:
@@ -20,6 +53,8 @@ services:
       - LONDON_API_URL=http://london:49252
       - FIRENZE_API_URL=http://firenze:49253
       - DRESDEN_API_URL=http://dresden:49254
+    labels:
+      co.elastic.logs/enabled: "true"
 
   dresden:
     build:
@@ -31,6 +66,8 @@ services:
       - LONDON_API_URL=http://london:49252
       - FIRENZE_API_URL=http://firenze:49253
       - DRESDEN_API_URL=http://dresden:49254
+    labels:
+      co.elastic.logs/enabled: "true"
 
   o11y-app:
     build:
@@ -42,7 +79,12 @@ services:
       - LONDON_API_URL=http://london:49252
       - FIRENZE_API_URL=http://firenze:49253
       - DRESDEN_API_URL=http://dresden:49254
+    labels:
+      co.elastic.logs/enabled: "true"
     depends_on:
       - london
       - firenze
       - dresden
+
+volumes:
+  filebeat-data:

@@ -1,0 +1,22 @@
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+      hints.default_config:
+        type: filestream
+        id: container-${data.container.id}
+        prospector.scanner.symlinks: true
+        parsers:
+          - container: ~
+        paths:
+          - /var/lib/docker/containers/${data.container.id}/*.log
+
+processors:
+  - add_docker_metadata:
+      host: "unix:///var/run/docker.sock"
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+
+setup.kibana:
+  host: "http://kibana:5601"
