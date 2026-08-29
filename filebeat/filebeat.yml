@@ -7,7 +7,14 @@ filebeat.autodiscover:
         id: container-${data.container.id}
         prospector.scanner.symlinks: true
         parsers:
+          # 1. unwrap the Docker json-file log envelope
           - container: ~
+          # 2. the application line itself is ECS JSON -> merge it to the root
+          - ndjson:
+              target: ""
+              overwrite_keys: true
+              add_error_key: true
+              expand_keys: true
         paths:
           - /var/lib/docker/containers/${data.container.id}/*.log
 

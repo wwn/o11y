@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     implementation enforcedPlatform(libs.quarkus.bom)
-    implementation libs.quarkus.logging.logback
+    implementation libs.quarkus.logging.json
     implementation project(':o11y-app')
     implementation libs.quarkus.rest
     implementation libs.quarkus.rest.client.jackson
