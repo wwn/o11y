@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:25.0.4_7-jdk AS build
+FROM eclipse-temurin:26.0.2_10-jdk AS build
 
 ARG MODULE
 WORKDIR /workspace
@@ -8,7 +8,7 @@ WORKDIR /workspace
 COPY . .
 RUN chmod +x gradlew && ./gradlew --no-daemon :${MODULE}:quarkusBuild
 
-FROM eclipse-temurin:25.0.4_7-jre
+FROM eclipse-temurin:26.0.2_10-jre
 
 ARG MODULE
 WORKDIR /deployments
