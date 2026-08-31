@@ -1,7 +1,6 @@
 package ch.nickl.o11y.firenze;
 
 import ch.nickl.o11y.app.application.usecase.FirenzeBusinessUseCase;
-import ch.nickl.o11y.app.infrastructure.UseCase;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;

@@ -1,7 +1,6 @@
 package ch.nickl.o11y.london;
 
 import ch.nickl.o11y.app.application.usecase.LondonBusinessUseCase;
-import ch.nickl.o11y.app.infrastructure.UseCase;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;

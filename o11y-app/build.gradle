@@ -9,13 +9,14 @@ dependencies {
     implementation libs.quarkus.logging.json
     implementation libs.jakarta.cdi.api
     implementation libs.jakarta.interceptor.api
-    implementation libs.slf4j.api
     implementation libs.quarkus.rest
     implementation libs.quarkus.rest.client
     implementation libs.quarkus.rest.client.jackson
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
     implementation libs.quarkus.arc
     implementation libs.quarkus.smallrye.fault.tolerance
     implementation libs.quarkus.smallrye.health
+
+    testImplementation libs.junit.jupiter
+    testImplementation libs.assertj.core
+    testRuntimeOnly libs.junit.platform.launcher
 }

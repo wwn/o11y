@@ -8,7 +8,4 @@ dependencies {
     implementation project(':o11y-app')
     implementation libs.quarkus.rest
     implementation libs.quarkus.arc
-
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
 }

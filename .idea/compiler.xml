@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <annotationProcessing>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
-        </processorPath>
-        <module name="o11y.firenze.main" />
-        <module name="o11y.dresden.main" />
-        <module name="o11y.london.main" />
-        <module name="o11y.o11y-app.main" />
-      </profile>
-    </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="o11y.alpha" target="25" />
       <module name="o11y.alpha.integrationTest" target="25" />
