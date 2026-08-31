@@ -1,9 +1,9 @@
-FROM eclipse-temurin:25.0.4_7-jdk AS build
+FROM eclipse-temurin:26.0.2_10-jdk AS build
 COPY . /code
 WORKDIR /code
 RUN ./gradlew :london:build
 
-FROM eclipse-temurin:25.0.4_7-jre
+FROM eclipse-temurin:26.0.2_10-jre
 ENV LANGUAGE='en_US:en'
 COPY --from=build /code/london/build/quarkus-app/lib/ /deployments/lib/
 COPY --from=build /code/london/build/quarkus-app/*.jar /deployments/
