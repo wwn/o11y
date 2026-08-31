@@ -17,17 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.awaitility.Awaitility.await;
 
-/**
- * End-to-end checks for the correlation-id / MDC plumbing:
- * <ul>
- *   <li>the {@code X-Correlation-ID} header is honoured on the way in and echoed on the way out,</li>
- *   <li>a correlation id is minted when the caller supplies none,</li>
- *   <li>the MDC survives the reactive completion callback (the record is logged on a different
- *       thread than the one that started the use case),</li>
- *   <li>per-event MDC fields land only on the completion record,</li>
- *   <li>an unparseable {@code delay} produces a 400 and a logged failure that is still correlated.</li>
- * </ul>
- */
 @QuarkusTest
 class CorrelationIdPropagationTest {
 

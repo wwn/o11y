@@ -21,11 +21,11 @@ class DelayParsingTest {
             "1m,        60000",
             "1.5m,      90000",
             "1h,        3600000",
-            "300,       300",      // bare number is interpreted as milliseconds
+            "300,       300", // bare number is interpreted as milliseconds
             "PT2S,      2000",
             "PT0.5S,    500",
-            "pt2s,      2000",     // case-insensitive
-            "'  2s  ',  2000",     // surrounding whitespace is trimmed
+            "pt2s,      2000", // case-insensitive
+            "'  2s  ',  2000", // surrounding whitespace is trimmed
     })
     void given_aSupportedDelayFormat_when_parsed_then_returnsTheExpectedMilliseconds(String input, long expectedMillis) {
         assertThat(parseDelayToMillis(input)).isEqualTo(expectedMillis);
