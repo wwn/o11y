@@ -6,10 +6,13 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import ch.nickl.o11y.app.infrastructure.logging.CorrelationIdClientFilter;
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @Path("/firenze")
 @RegisterRestClient(configKey="firenze-api")
+@RegisterProvider(CorrelationIdClientFilter.class)
 public interface FirenzeClient {
 
     @GET

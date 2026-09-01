@@ -10,6 +10,9 @@ dependencies {
     implementation libs.quarkus.rest.client.jackson
     implementation libs.quarkus.arc
 
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
+    testImplementation libs.quarkus.junit5
+    testImplementation libs.rest.assured
+    testImplementation libs.assertj.core
+    testImplementation libs.awaitility
+    testRuntimeOnly libs.junit.platform.launcher
 }

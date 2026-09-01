@@ -2,14 +2,13 @@ package ch.nickl.o11y.app.application.usecase;
 
 import ch.nickl.o11y.app.infrastructure.UseCase;
 import jakarta.enterprise.context.ApplicationScoped;
-import lombok.extern.slf4j.Slf4j;
+import io.quarkus.logging.Log;
 
-@Slf4j
 @ApplicationScoped
 public class LondonBusinessUseCase extends BaseBusinessUseCase {
     @Override
     void invoke() {
-        log.info("London business logic output");
+        Log.info("London business logic output");
     }
 
     @Override
