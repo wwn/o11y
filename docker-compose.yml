@@ -37,6 +37,7 @@ services:
       co.elastic.logs/enabled: "false"
 
   london:
+    profiles: ["app"]
     build:
       context: .
       dockerfile: london/Dockerfile
@@ -50,6 +51,7 @@ services:
       co.elastic.logs/enabled: "true"
 
   firenze:
+    profiles: ["app"]
     build:
       context: .
       dockerfile: firenze/Dockerfile
@@ -63,6 +65,7 @@ services:
       co.elastic.logs/enabled: "true"
 
   dresden:
+    profiles: ["app"]
     build:
       context: .
       dockerfile: dresden/Dockerfile
@@ -76,6 +79,7 @@ services:
       co.elastic.logs/enabled: "true"
 
   o11y-app:
+    profiles: ["app"]
     build:
       context: .
       dockerfile: o11y-app/Dockerfile

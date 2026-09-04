@@ -24,3 +24,9 @@ subprojects {
         useJUnitPlatform()
     }
 }
+
+tasks.register('dockerRedeployApp', Exec) {
+    group = 'docker'
+    description = 'Rebuilds and redeploys the "app" profile services (elasticsearch, kibana and filebeat are left running).'
+    commandLine 'docker', 'compose', '--profile', 'app', 'up', '-d', '--build'
+}
