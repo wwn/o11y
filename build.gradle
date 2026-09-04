@@ -24,3 +24,8 @@ subprojects {
         useJUnitPlatform()
     }
 }
+
+tasks.register('dockerRedeployApp', Exec) {
+    group = 'docker'
+    commandLine 'docker', 'compose', 'up', '-d', '--build', 'o11y-app', 'dresden', 'firenze', 'london'
+}
