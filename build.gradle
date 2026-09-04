@@ -27,5 +27,6 @@ subprojects {
 
 tasks.register('dockerRedeployApp', Exec) {
     group = 'docker'
-    commandLine 'docker', 'compose', 'up', '-d', '--build', 'o11y-app', 'dresden', 'firenze', 'london'
+    description = 'Rebuilds and redeploys the "app" profile services (elasticsearch, kibana and filebeat are left running).'
+    commandLine 'docker', 'compose', '--profile', 'app', 'up', '-d', '--build'
 }
