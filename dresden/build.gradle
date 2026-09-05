@@ -8,4 +8,10 @@ dependencies {
     implementation project(':o11y-app')
     implementation libs.quarkus.rest
     implementation libs.quarkus.arc
+
+    testImplementation libs.quarkus.junit5
+    testImplementation libs.rest.assured
+    testImplementation libs.assertj.core
+    testImplementation libs.awaitility
+    testRuntimeOnly libs.junit.platform.launcher
 }

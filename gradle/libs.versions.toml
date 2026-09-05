@@ -5,6 +5,7 @@ cdi-api = "4.1.0"
 interceptor-api = "2.2.0"
 logging-json = "3.5.0"
 assertj = "3.27.3"
+wiremock = "3.9.2"
 
 [libraries]
 quarkus-bom = { group = "io.quarkus.platform", name = "quarkus-bom", version.ref = "quarkus" }
@@ -23,6 +24,7 @@ awaitility = { group = "org.awaitility", name = "awaitility" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
+wiremock = { group = "org.wiremock", name = "wiremock-standalone", version.ref = "wiremock" }
 
 [plugins]
 quarkus = { id = "io.quarkus", version.ref = "quarkus" }
