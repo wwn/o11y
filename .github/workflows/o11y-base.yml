@@ -1,10 +1,16 @@
 name: Java CI with Gradle
 
 on:
+  # Run on every push to a feature, bugfix or chore branch.
   push:
-    branches: [ "main", "develop", "feature/**" ]
-  pull_request:
-    branches: [ "main", "develop", "feature/**" ]
+    branches:
+      - "feature/**"
+      - "bugfix/**"
+      - "chore/**"
+      # Merging a pull request into develop or main produces a push to that
+      # branch, so this also covers "run after a PR was merged into develop/main".
+      - "develop"
+      - "main"
 
 jobs:
   build:
@@ -14,7 +20,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up JDK 26
       uses: actions/setup-java@v4
       with:

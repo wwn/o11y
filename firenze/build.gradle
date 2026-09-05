@@ -14,5 +14,6 @@ dependencies {
     testImplementation libs.rest.assured
     testImplementation libs.assertj.core
     testImplementation libs.awaitility
+    testImplementation libs.wiremock
     testRuntimeOnly libs.junit.platform.launcher
 }
