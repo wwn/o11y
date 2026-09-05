@@ -1,0 +1,41 @@
+# ============================================================================
+#  pr-policy — enforces which source branches may open a pull request
+#  against main.
+#
+#  GitHub has no native branch-protection / ruleset option for this, so it is
+#  checked here. Make this job a *required status check* in main's branch
+#  protection (Settings → Branches, or a ruleset) so a disallowed PR cannot
+#  be merged.
+#
+#  Allowed into main: "develop" and "hotfix/**".
+# ============================================================================
+name: pr-policy
+
+on:
+  pull_request:
+    branches:
+      - main
+    # "edited" also fires when the base branch of an existing PR is changed.
+    types: [opened, reopened, synchronize, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  allowed-source-branch:
+    name: source branch allowed to target main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only develop or hotfix/** may target main
+        env:
+          # github.head_ref is the PR source branch name (no refs/heads/ prefix).
+          # Passed through env, never interpolated into the script directly.
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          case "$HEAD_REF" in
+            develop | hotfix/*)
+              echo "OK: '$HEAD_REF' is allowed to target main" ;;
+            *)
+              echo "::error::Pull requests into main are only allowed from 'develop' or 'hotfix/**' (got '$HEAD_REF')"
+              exit 1 ;;
+          esac
